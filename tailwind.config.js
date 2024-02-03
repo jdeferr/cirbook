@@ -2,10 +2,6 @@
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
-    fontFamily: {
-      title: ['Quando', 'Open Sans', 'sans-serif'],
-      body: ['Open Sans', 'sans-serif']
-    },
     extend: {
       colors: {
         primary: '#F3F2EE',
@@ -15,6 +11,13 @@ export default {
         'book-bg': '#DEDEDE',
         'book-bg-100': '#FFFFFF',
         author: '#A1A1A1'
+      },
+      fontFamily: {
+        title: ['Quando', 'Open Sans', 'sans-serif'],
+        body: ['Open Sans', 'sans-serif']
+      },
+      maxWidth: {
+        desktop: '1200px'
       }
     }
   },

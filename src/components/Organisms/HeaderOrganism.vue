@@ -4,7 +4,9 @@
   <header class="bg-primary">
     <div class="max-w-desktop h-16 flex justify-between items-center mx-auto">
       <div>
-        <h1 class="font-title text-3xl">CIRBOOK</h1>
+        <router-link to="/">
+          <h1 class="font-title text-3xl">CIRBOOK</h1>
+        </router-link>
       </div>
       <div>
         <input

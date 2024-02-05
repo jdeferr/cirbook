@@ -12,6 +12,10 @@ const router = createRouter({
         {
           path: '',
           component: HomeView
+        },
+        {
+          path: '/book/:id',
+          component: () => import('../views/BookView.vue')
         }
       ]
     }

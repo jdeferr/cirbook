@@ -16,7 +16,8 @@ export default {
       fontFamily: {
         title: ['Quando', 'Open Sans', 'sans-serif'],
         body: ['Open Sans', 'sans-serif'],
-        price: ['Roboto Condensed', 'sans-serif']
+        price: ['Roboto Condensed', 'sans-serif'],
+        button: ['Roboto Condensed', 'sans-serif']
       },
       maxWidth: {
         desktop: '1200px'

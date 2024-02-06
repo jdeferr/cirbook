@@ -1,28 +1,31 @@
 <script setup lang="ts">
 import cover from '@/assets/cover.png'
+import type { BookWidget } from '@/entities/book'
+
+const props = defineProps<BookWidget>()
+
+const formatTitle = (title: string) => title.toLowerCase().replace(/\s+/g, '-')
+
+const bookLink = `/book/${props.id}-${formatTitle(props.title)}`
 </script>
 
 <template>
-  <router-link to="/book/1-harry-potter-and-phiolofo">
+  <router-link :to="bookLink">
     <article class="flex flex-col gap-y-2">
       <div class="book-bg p-12 aspect-square">
-        <img
-          :src="cover"
-          alt="Harry Potter and the Philosopher’s Stone"
-          class="w-full overflow-hidden rounded-xl shadow-lg"
-        />
+        <img :src="cover" :alt="props.title" class="w-full overflow-hidden rounded-xl shadow-lg" />
       </div>
       <div class="flex justify-between w-full">
         <div>
           <h5 class="font-body font-medium text-lg truncate-2-lines overflow-hidden">
-            Harry Potter and the Philosopher’s Stone
+            {{ props.title }}
           </h5>
-          <p class="text-author text-[10px] font-body">J.K. ROWLING</p>
+          <p class="text-author text-[10px] font-body">{{ props.author }}</p>
         </div>
         <div>
           <span
             class="block font-price bg-secondary-100 text-complementary font-light text-sm text-nowrap rounded-3xl px-2 py-1"
-            >99,10 NZD</span
+            >{{ props.price }} NZD</span
           >
         </div>
       </div>

@@ -15,18 +15,9 @@ bookStore.getBooks()
         class="grid grid-cols-4 gap-x-24 gap-y-10"
         v-else-if="!bookStore.isLoading && bookStore.allBooks.length > 0"
       >
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
-        <BookList />
+        <template v-for="book in bookStore.allBooks" v-bind:key="book.id">
+          <BookList :title="book.title" :author="book.author" :price="book.price" :id="book.id" />
+        </template>
       </div>
       <div v-else>
         <p>No books found: {{ bookStore.getError }}</p>

@@ -6,3 +6,5 @@ export interface Book {
   price: number
   availableStock: number
 }
+
+export type BookWidget = Omit<Book, 'isbn' | 'availableStock'>

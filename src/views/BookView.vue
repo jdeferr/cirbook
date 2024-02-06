@@ -1,14 +1,24 @@
 <script setup lang="ts">
 import cover from '@/assets/cover.png'
+import { useRoute } from 'vue-router'
+import { useBookStore } from '@/stores/books'
+
+const route = useRoute()
+const idSlug = route.params.id as string
+const id = idSlug.split('-')[0]
+
+const bookStore = useBookStore()
+bookStore.clearBook()
+bookStore.getBook(id)
 </script>
 
 <template>
-  <section class="bg-primary-500 mb-10">
+  <section class="bg-primary-500 mb-10" v-if="bookStore.currentBook">
     <div class="max-w-desktop gap-x-10 mx-auto grid grid-cols-12 pt-10 translate-y-10">
       <div class="col-start-3 col-span-3">
         <img
           :src="cover"
-          alt="Harry Potter and the Philosopher’s Stone"
+          :alt="bookStore.currentBook.title"
           class="w-full overflow-hidden rounded-xl shadow-xl"
         />
       </div>
@@ -16,13 +26,15 @@ import cover from '@/assets/cover.png'
         <div class="flex flex-col gap-y-10">
           <div>
             <h5 class="font-body font-medium text-[40px] truncate-2-lines overflow-hidden">
-              Harry Potter and the Philosopher’s Stone
+              {{ bookStore.currentBook.title }}
             </h5>
-            <p class="text-author text-[12px] font-body">J.K. ROWLING</p>
+            <p class="text-author text-[12px] font-body">{{ bookStore.currentBook.author }}</p>
           </div>
           <div class="flex flex-col text-secondary-500 font-medium font-price">
-            <span class="text-3xl text-nowrap rounded-3xl">99,10 NZD</span>
-            <span>8 Books left</span>
+            <span class="text-3xl text-nowrap rounded-3xl"
+              >{{ bookStore.currentBook.price }} NZD</span
+            >
+            <span>{{ bookStore.currentBook.availableStock }} Books left</span>
           </div>
         </div>
         <div>

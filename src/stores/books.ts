@@ -51,6 +51,20 @@ export const useBookStore = defineStore('books', {
       } finally {
         this.loading = false
       }
+    },
+    async purchaseBook(id: string) {
+      const response = await fetch(`${API_BOOK_URL}/${id}/purchase`, {
+        method: 'POST'
+      })
+      const data = await response.json()
+      if (response.status === 200) {
+        this.book = data.book
+        return data.message
+      } else if (response.status === 404 || response.status === 500) {
+        throw new Error(data.message)
+      } else {
+        throw new Error('Error desconocido')
+      }
     }
   }
 })

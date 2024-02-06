@@ -2,6 +2,7 @@
 import cover from '@/assets/cover.png'
 import { useRoute } from 'vue-router'
 import { useBookStore } from '@/stores/books'
+import { ref } from 'vue'
 
 const route = useRoute()
 const idSlug = route.params.id as string
@@ -10,15 +11,38 @@ const id = idSlug.split('-')[0]
 const bookStore = useBookStore()
 bookStore.clearBook()
 bookStore.getBook(id)
+
+const purchaseResponse = ref({
+  success: null,
+  message: ''
+} as { success: boolean | null; message: string })
+
+const purchaseBook = () => {
+  bookStore
+    .purchaseBook(id)
+    .then((message) => {
+      purchaseResponse.value.message = message
+      purchaseResponse.value.success = true
+    })
+    .catch((error: Error) => {
+      purchaseResponse.value.message = error.message
+      purchaseResponse.value.success = false
+    })
+    .finally(() => {
+      setTimeout(() => {
+        purchaseResponse.value.success = null
+      }, 5000)
+    })
+}
 </script>
 
 <template>
-  <section class="bg-primary-500 mb-10" v-if="bookStore.currentBook">
+  <section class="bg-primary-500 mb-10" v-if="bookStore.book">
     <div class="max-w-desktop gap-x-10 mx-auto grid grid-cols-12 pt-10 translate-y-10">
       <div class="col-start-3 col-span-3">
         <img
           :src="cover"
-          :alt="bookStore.currentBook.title"
+          :alt="bookStore.book.title"
           class="w-full overflow-hidden rounded-xl shadow-xl"
         />
       </div>
@@ -26,20 +50,31 @@ bookStore.getBook(id)
         <div class="flex flex-col gap-y-10">
           <div>
             <h5 class="font-body font-medium text-[40px] truncate-2-lines overflow-hidden">
-              {{ bookStore.currentBook.title }}
+              {{ bookStore.book.title }}
             </h5>
-            <p class="text-author text-[12px] font-body">{{ bookStore.currentBook.author }}</p>
+            <p class="text-author text-[12px] font-body">{{ bookStore.book.author }}</p>
           </div>
           <div class="flex flex-col text-secondary-500 font-medium font-price">
-            <span class="text-3xl text-nowrap rounded-3xl"
-              >{{ bookStore.currentBook.price }} NZD</span
-            >
-            <span>{{ bookStore.currentBook.availableStock }} Books left</span>
+            <span class="text-3xl text-nowrap rounded-3xl">{{ bookStore.book.price }} NZD</span>
+            <span>{{ bookStore.book.availableStock }} Books left</span>
           </div>
         </div>
         <div>
+          <div
+            v-if="purchaseResponse.success === true"
+            class="bg-secondary-500 px-2 py-1 text-white my-2 rounded"
+          >
+            {{ purchaseResponse.message }}
+          </div>
+          <div
+            v-if="purchaseResponse.success === false"
+            class="bg-red-500 px-2 py-1 text-white my-2 rounded"
+          >
+            {{ purchaseResponse.message }}
+          </div>
           <button
             class="font-button shadow-xl bg-complementary text-white rounded-full py-3 px-4 text-body"
+            @click="purchaseBook"
           >
             PURCHASE A COPY
           </button>

@@ -38,11 +38,14 @@ export const useBookStore = defineStore('books', {
         this.loading = false
       }
     },
+    clearBook() {
+      this.book = null
+    },
     async getBook(id: string) {
       this.loading = true
       try {
         const response = await fetch(`${API_BOOK_URL}/${id}`)
-        this.book = await response.json()
+        this.book = (await response.json()).book
       } catch (error: any) {
         this.error = error
       } finally {

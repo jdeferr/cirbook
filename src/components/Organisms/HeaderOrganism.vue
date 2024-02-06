@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <header class="bg-primary">
+  <header class="bg-primary-500">
     <div class="max-w-desktop h-16 flex justify-between items-center mx-auto">
       <div>
         <router-link to="/">

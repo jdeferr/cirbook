@@ -3,7 +3,7 @@ import cover from '@/assets/cover.png'
 </script>
 
 <template>
-  <section class="bg-primary mb-10">
+  <section class="bg-primary-500 mb-10">
     <div class="max-w-desktop gap-x-10 mx-auto grid grid-cols-12 pt-10 translate-y-10">
       <div class="col-start-3 col-span-3">
         <img
@@ -20,7 +20,7 @@ import cover from '@/assets/cover.png'
             </h5>
             <p class="text-author text-[12px] font-body">J.K. ROWLING</p>
           </div>
-          <div class="flex flex-col text-secondary font-medium font-price">
+          <div class="flex flex-col text-secondary-500 font-medium font-price">
             <span class="text-3xl text-nowrap rounded-3xl">99,10 NZD</span>
             <span>8 Books left</span>
           </div>

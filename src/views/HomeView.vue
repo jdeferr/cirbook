@@ -15,7 +15,7 @@ bookStore.getBooks()
         class="grid grid-cols-4 gap-x-24 gap-y-10"
         v-else-if="!bookStore.isLoading && bookStore.allBooks.length > 0"
       >
-        <template v-for="book in bookStore.allBooks" v-bind:key="book.id">
+        <template v-for="book in bookStore.allBooks" :key="book.id">
           <BookList :title="book.title" :author="book.author" :price="book.price" :id="book.id" />
         </template>
       </div>

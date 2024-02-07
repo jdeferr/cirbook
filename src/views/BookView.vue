@@ -38,7 +38,7 @@ const purchaseBook = () => {
 </script>
 
 <template>
-  <section class="bg-primary-500 mb-10" v-if="bookStore.book">
+  <section class="bg-primary-500 mb-10" v-if="bookStore && bookStore.book">
     <div class="max-w-desktop gap-x-10 mx-auto grid grid-cols-12 pt-10 translate-y-10">
       <div class="col-start-3 col-span-3">
         <img
@@ -50,14 +50,27 @@ const purchaseBook = () => {
       <div class="col-span-4 flex flex-col justify-around">
         <div class="flex flex-col gap-y-10">
           <div>
-            <h5 class="font-body font-medium text-[40px] truncate-2-lines overflow-hidden">
+            <h5
+              data-test="book-title"
+              class="font-body font-medium text-[40px] truncate-2-lines overflow-hidden"
+            >
               {{ bookStore.book.title }}
             </h5>
-            <p class="text-author text-[12px] font-body">{{ bookStore.book.author }}</p>
+            <p data-test="book-author" class="text-author text-[12px] font-body">
+              {{ bookStore.book.author }}
+            </p>
+            <p data-test="book-isbn" class="text-author text-[12px] font-body">
+              {{ bookStore.book.isbn }}
+            </p>
           </div>
           <div class="flex flex-col text-secondary-500 font-medium font-price">
-            <span class="text-3xl text-nowrap rounded-3xl">{{ bookStore.book.price }} NZD</span>
-            <span>{{ bookStore.book.availableStock }} Books left</span>
+            <span class="text-3xl text-nowrap rounded-3xl"
+              ><span data-test="book-price">{{ bookStore.book.price }}</span> NZD</span
+            >
+            <span
+              ><span data-test="book-stock">{{ bookStore.book.availableStock }}</span> Books
+              left</span
+            >
           </div>
         </div>
         <div>
@@ -94,7 +107,7 @@ const purchaseBook = () => {
     </p>
   </section>
   <Modal
-    v-if="purchaseResponse.success !== null"
+    v-if="purchaseResponse && purchaseResponse.success !== null"
     @close="purchaseResponse.success = null"
     :message="purchaseResponse.message"
     :icon="purchaseResponse.success === true ? 'success' : 'alert'"

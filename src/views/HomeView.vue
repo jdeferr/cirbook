@@ -10,7 +10,7 @@ bookStore.getBooks()
   <main class="py-10">
     <section class="max-w-desktop mx-auto">
       <h4 class="font-title text-3xl text-center mb-10">Books</h4>
-      <div v-if="bookStore.isLoading">Loading books</div>
+      <div data-test="loading-message" v-if="bookStore.isLoading">Loading books</div>
       <div
         class="grid grid-cols-4 gap-x-24 gap-y-10"
         v-else-if="!bookStore.isLoading && bookStore.allBooks.length > 0"
@@ -20,7 +20,9 @@ bookStore.getBooks()
         </template>
       </div>
       <div v-else>
-        <p>No books found: {{ bookStore.getError }}</p>
+        <p data-test="no-books-found-message">
+          No books found:{{ bookStore.isLoading ? 'hol' : 'chau' }} {{ bookStore.getError }}
+        </p>
       </div>
     </section>
   </main>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import cover from '@/assets/cover.png'
+import Modal from '@/components/Molecules/ModalMolecule.vue'
 import { useRoute } from 'vue-router'
 import { useBookStore } from '@/stores/books'
 import { ref } from 'vue'
@@ -92,4 +93,11 @@ const purchaseBook = () => {
       earum consequatur illum! Soluta, hic sunt tenetur reiciendis veniam harum adipisci quo.
     </p>
   </section>
+  <Modal
+    v-if="purchaseResponse.success !== null"
+    @close="purchaseResponse.success = null"
+    :message="purchaseResponse.message"
+    :icon="purchaseResponse.success === true ? 'success' : 'alert'"
+    button-label="Close"
+  />
 </template>

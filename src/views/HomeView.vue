@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BookList from '@components/Molecules/BookList.vue'
+import BookList from '@components/Molecules/BookListMolecule.vue'
 import { useBookStore } from '@/stores/books'
 
 const bookStore = useBookStore()

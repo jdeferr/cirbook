@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import BookList from '@components/Molecules/BookListMolecule.vue'
 import { useBookStore } from '@/stores/books'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
+const query = route.params.query as string
 const bookStore = useBookStore()
+
+if (query && query != '') bookStore.setQuery(query)
+else bookStore.setQuery(null)
+
 bookStore.getBooks()
 </script>
 

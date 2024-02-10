@@ -5,6 +5,8 @@ import { mount } from '@vue/test-utils'
 import BooksMock from '@/tests/mocks/books.json'
 import router from '@/router'
 
+window.scrollTo = () => {}
+
 describe('Book view', () => {
   const book = BooksMock[0]
 

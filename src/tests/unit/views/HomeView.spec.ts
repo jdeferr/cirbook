@@ -1,14 +1,18 @@
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createTestingPinia } from '@pinia/testing'
 import HomeView from '@/views/HomeView.vue'
 import { mount, shallowMount } from '@vue/test-utils'
 import booksMock from '@/tests/mocks/books.json'
+import router from '@/router'
+
+window.scrollTo = () => {}
 
 describe('Home view', () => {
   const createWrapper = (initialState: any) => {
-    return shallowMount(HomeView, {
+    return mount(HomeView, {
       global: {
         plugins: [
+          router,
           createTestingPinia({
             createSpy: vi.fn,
             initialState
@@ -17,6 +21,10 @@ describe('Home view', () => {
       }
     })
   }
+
+  beforeEach(() => {
+    router.push(`/`)
+  })
 
   it('should render the component', () => {
     const wrapper = createWrapper({})
@@ -52,24 +60,15 @@ describe('Home view', () => {
   })
 
   it('should render book list component when loading is false and books have items', () => {
-    const wrapper = shallowMount(HomeView, {
-      global: {
-        plugins: [
-          createTestingPinia({
-            createSpy: vi.fn,
-            initialState: {
-              books: {
-                books: booksMock,
-                book: null,
-                loading: false,
-                error: null
-              }
-            }
-          })
-        ]
+    const wrapper = createWrapper({
+      books: {
+        books: booksMock,
+        book: null,
+        loading: false,
+        error: null
       }
     })
-    const bookListComponents = wrapper.findAll('book-list-stub')
+    const bookListComponents = wrapper.findAllComponents({ name: 'BookListMolecule' })
     expect(bookListComponents.length).toBe(3)
   })
 })

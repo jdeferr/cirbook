@@ -10,8 +10,12 @@ const router = createRouter({
       component: DefaultLayout,
       children: [
         {
-          path: '',
-          component: HomeView
+          path: '/',
+          component: () => import('../views/HomeView.vue')
+        },
+        {
+          path: '/:query',
+          component: () => import('../views/HomeView.vue')
         },
         {
           path: '/book/:id',
@@ -19,7 +23,10 @@ const router = createRouter({
         }
       ]
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  }
 })
 
 export default router

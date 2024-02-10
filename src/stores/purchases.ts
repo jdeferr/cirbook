@@ -21,7 +21,7 @@ export const usePurchaseStore = defineStore('purchases', {
 
   getters: {
     isLoading: (state): boolean => state.loading,
-    getError: (state): Message | any => state.message
+    getMessage: (state): Message | null => state.message
   },
 
   actions: {

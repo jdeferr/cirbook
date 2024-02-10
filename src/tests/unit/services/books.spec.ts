@@ -1,4 +1,4 @@
-import { describe, expect, it, test, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import * as service from '@/services/books'
 import booksMock from '@/tests/mocks/books.json'
 
@@ -7,13 +7,13 @@ const createFetchResponse = (data: any, status: number = 200) => {
 }
 
 describe('Book Service', () => {
-  test('should fetch books', async () => {
+  it('should fetch books', async () => {
     global.fetch = vi.fn().mockResolvedValue(createFetchResponse({ books: booksMock }))
     const books = await service.getBooks()
     expect(books).toEqual(booksMock)
   })
 
-  test('should throw and error when fetching books and retreiving status 500', async () => {
+  it('should throw and error when fetching books and retreiving status 500', async () => {
     global.fetch = vi
       .fn()
       .mockResolvedValue(createFetchResponse({ message: 'Internal server error' }, 500))
@@ -23,14 +23,14 @@ describe('Book Service', () => {
     )
   })
 
-  test('should fetch a book', async () => {
+  it('should fetch a book', async () => {
     const book = booksMock[0]
     global.fetch = vi.fn().mockResolvedValue(createFetchResponse({ book }))
     const response = await service.getBook(book.id.toString())
     expect(response).toEqual(book)
   })
 
-  test('should throw and error when fetching a book and retreiving status 500', async () => {
+  it('should throw and error when fetching a book and retreiving status 500', async () => {
     const book = booksMock[0]
     global.fetch = vi
       .fn()
@@ -41,7 +41,7 @@ describe('Book Service', () => {
     )
   })
 
-  test('should return null when fetching a invalid id', async () => {
+  it('should return null when fetching a invalid id', async () => {
     global.fetch = vi
       .fn()
       .mockResolvedValue(createFetchResponse({ message: 'Book not found' }, 404))
@@ -50,28 +50,28 @@ describe('Book Service', () => {
     expect(response).toBeNull()
   })
 
-  test('should return message with new instance of book when purchase is success', async () => {
+  it('should return message with new instance of book when purchase is success', async () => {
     const book = booksMock[0]
     global.fetch = vi.fn().mockResolvedValue(createFetchResponse({ book, message: 'Success' }, 200))
     const response = await service.purchaseBook(book.id.toString())
     expect(response).toEqual({ book, message: 'Success' })
   })
 
-  test('should return null when purchase is failed by 404', async () => {
+  it('should return null when purchase is failed by 404', async () => {
     const book = booksMock[0]
     global.fetch = vi.fn().mockResolvedValue(createFetchResponse({ message: 'Error' }, 404))
     const response = await service.purchaseBook(book.id.toString())
     expect(response).toEqual({ book: null, message: 'Error' })
   })
 
-  test('should return null when purchase is failed by 500', async () => {
+  it('should return null when purchase is failed by 500', async () => {
     const book = booksMock[0]
     global.fetch = vi.fn().mockResolvedValue(createFetchResponse({ message: 'Error' }, 500))
     const response = await service.purchaseBook(book.id.toString())
     expect(response).toEqual({ book: null, message: 'Error' })
   })
 
-  test('should return null when there are other error', async () => {
+  it('should return null when there are other error', async () => {
     const book = booksMock[0]
     global.fetch = vi
       .fn()

@@ -1,27 +1,37 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import FooterColumnMolecule from '@/components/Molecules/FooterColumnMolecule.vue'
+import LogoAtom from '@/components/Atoms/LogoAtom.vue'
+import { LinkTypeEnum } from '@/entities/ui'
+
+const LinkedinUrl = import.meta.env.AUTHOR_LINKEDIN || 'https://www.linkedin.com/in/jdeferr'
+
+const footerColumns = [
+  {
+    title: 'Useful links',
+    links: [{ name: 'Home', url: '/', type: LinkTypeEnum.INTERNAL }]
+  },
+  {
+    title: 'Developer links',
+    links: [
+      { name: 'Linkedin', url: LinkedinUrl, type: LinkTypeEnum.EXTERNAL },
+      { name: 'Resume', url: '#', type: LinkTypeEnum.EXTERNAL }
+    ]
+  }
+]
+</script>
 
 <template>
-  <header class="bg-complementary text-white">
+  <footer class="bg-complementary text-white">
     <div class="max-w-desktop py-10 pb-56 flex justify-between items-start mx-auto">
+      <FooterColumnMolecule
+        v-for="(column, key) in footerColumns"
+        :key="key"
+        :title="column.title"
+        :links="column.links"
+      />
       <div>
-        <h3 class="font-title text-xl font-light">Useful links</h3>
-        <hr class="my-2 w-[300px] max-w-full" />
-        <ul class="font-extralight">
-          <li>Home</li>
-          <li>Books</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-title text-xl font-light">Developer links</h3>
-        <hr class="my-2 w-[300px] max-w-full" />
-        <ul class="font-extralight">
-          <li><a href="#">Linkedin</a></li>
-          <li><a href="#">Resume</a></li>
-        </ul>
-      </div>
-      <div>
-        <h1 class="font-title text-3xl">CIRBOOK</h1>
+        <LogoAtom />
       </div>
     </div>
-  </header>
+  </footer>
 </template>

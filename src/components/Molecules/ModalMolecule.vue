@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CloseIcon from '@/components/Atoms/CloseIconAtom.vue'
 import AlertIcon from '@/components/Atoms/AlertIconAtom.vue'
-import SuccessIcon from '@/components/Atoms/AlertIconAtom.vue'
+import SuccessIcon from '@/components/Atoms/SuccessIconAtom.vue'
 import { MessageEnum, type Message } from '@/entities/message'
 
 interface Props {
@@ -18,7 +18,7 @@ const props = defineProps<Props>()
   >
     <div class="w-full h-full absolute top-0 left-0 bg-black opacity-50"></div>
     <div
-      class="absolute place-content-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full"
+      class="absolute place-content-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full min-w-[300px]"
     >
       <div class="relative bg-white rounded-lg shadow">
         <button

@@ -41,7 +41,11 @@ export const usePurchaseStore = defineStore('purchases', {
           book: data.book
         })
 
-        this.message = null
+        this.message = {
+          title: 'SUCCESS',
+          message: data.message,
+          type: MessageEnum.SUCCESS
+        }
       } else if (response.status === 404 || response.status === 500) {
         this.message = {
           title: 'ERROR',

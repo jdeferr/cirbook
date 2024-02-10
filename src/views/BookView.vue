@@ -3,6 +3,7 @@ import cover from '@/assets/cover.png'
 import Modal from '@/components/Molecules/ModalMolecule.vue'
 import { useRoute } from 'vue-router'
 import { useBookStore } from '@/stores/books'
+import { usePurchaseStore } from '@/stores/purchases'
 import { ref } from 'vue'
 
 const route = useRoute()
@@ -13,27 +14,15 @@ const bookStore = useBookStore()
 bookStore.clearBook()
 bookStore.getBook(id)
 
+const purchaseStore = usePurchaseStore()
+
 const purchaseResponse = ref({
   success: null,
   message: ''
 } as { success: boolean | null; message: string })
 
 const purchaseBook = () => {
-  bookStore
-    .purchaseBook(id)
-    .then((message) => {
-      purchaseResponse.value.message = message
-      purchaseResponse.value.success = true
-    })
-    .catch((error: Error) => {
-      purchaseResponse.value.message = error.message
-      purchaseResponse.value.success = false
-    })
-    .finally(() => {
-      setTimeout(() => {
-        purchaseResponse.value.success = null
-      }, 5000)
-    })
+  purchaseStore.purchaseBook(id)
 }
 </script>
 
@@ -87,6 +76,7 @@ const purchaseBook = () => {
             {{ purchaseResponse.message }}
           </div>
           <button
+            data-test="purchase-button"
             class="font-button shadow-xl bg-complementary text-white rounded-full py-3 px-4 text-body"
             @click="purchaseBook"
           >
@@ -107,10 +97,9 @@ const purchaseBook = () => {
     </p>
   </section>
   <Modal
-    v-if="purchaseResponse && purchaseResponse.success !== null"
-    @close="purchaseResponse.success = null"
-    :message="purchaseResponse.message"
-    :icon="purchaseResponse.success === true ? 'success' : 'alert'"
+    v-if="purchaseStore.message != null"
+    @close="purchaseStore.message = null"
+    :message="purchaseStore.message"
     button-label="Close"
   />
 </template>

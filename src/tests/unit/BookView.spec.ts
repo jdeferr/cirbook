@@ -50,9 +50,68 @@ describe('Book view', () => {
     const stock = wrapper.find('[data-test="book-stock"]')
     expect(stock.text()).toBe(book.availableStock.toString())
   })
-  it('displays error', () => {})
-  it('message after failed purchase', () => {})
-  it('clears success message', () => {})
-  it('after 5 seconds', () => {})
-  it('enders book details', () => {})
+
+  it('show modal when pruchases message have information', async () => {
+    router.push(`/book/${book.id}`)
+    await router.isReady()
+    const wrapper = createWrapper({
+      books: {
+        book
+      },
+      purchases: {
+        message: {
+          title: 'ERROR',
+          message: 'An error occurred, please try again later.',
+          type: 'error'
+        }
+      }
+    })
+
+    const modalComponent = await wrapper.findComponent({ name: 'ModalMolecule' })
+    expect(modalComponent.exists()).toBe(true)
+
+    const modalTitle = modalComponent.find('[data-test="modal-title"]')
+    expect(modalTitle.text()).toBe('ERROR')
+
+    const modalMessage = modalComponent.find('[data-test="modal-message"]')
+    expect(modalMessage.text()).toBe('An error occurred, please try again later.')
+  })
+
+  it('show out of stock button', async () => {
+    router.push(`/book/${book.id}`)
+    await router.isReady()
+    const wrapper = createWrapper({
+      books: {
+        book: {
+          ...book,
+          availableStock: 0
+        }
+      }
+    })
+
+    const purchaseButton = wrapper.find('[data-test="purchase-button"]')
+    expect(purchaseButton.exists()).toBeFalsy()
+
+    const outOfStock = wrapper.find('[data-test="out-of-stock-button"]')
+    expect(outOfStock.exists()).toBeTruthy()
+  })
+
+  it('show purchase button', async () => {
+    router.push(`/book/${book.id}`)
+    await router.isReady()
+    const wrapper = createWrapper({
+      books: {
+        book: {
+          ...book,
+          availableStock: 1
+        }
+      }
+    })
+
+    const purchaseButton = wrapper.find('[data-test="purchase-button"]')
+    expect(purchaseButton.exists()).toBeTruthy()
+
+    const outOfStock = wrapper.find('[data-test="out-of-stock-button"]')
+    expect(outOfStock.exists()).toBeFalsy()
+  })
 })

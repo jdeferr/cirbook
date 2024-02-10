@@ -8,9 +8,8 @@ const router = useRouter()
 const bookStore = useBookStore()
 
 const onKeyPressed = ($event: any) => {
-  // if ($event === '')
   bookStore.setQuery($event)
-  router.push({ path: '/home', query: { search: $event } })
+  router.push({ path: '/', query: { search: $event } })
 }
 
 const onClickLogo = () => {
@@ -31,11 +30,6 @@ const onClickLogo = () => {
           placeholder="Search by author, title, isbn..."
           @on-key-pressed="onKeyPressed"
         />
-      </div>
-      <div>
-        <ul class="flex gap-x-5 text-lg font-light">
-          <li>books</li>
-        </ul>
       </div>
     </div>
   </header>

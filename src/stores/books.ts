@@ -7,6 +7,7 @@ interface BooksState {
   lastBooksFetch: Date | null
   minFetchInterval: number
   book: Book | null
+  query: string | null
   loading: boolean
   error: Error | any
 }
@@ -14,6 +15,7 @@ interface BooksState {
 export const useBookStore = defineStore('books', {
   state: (): BooksState => ({
     books: [],
+    query: null,
     lastBooksFetch: null,
     minFetchInterval: 10 * 60 * 1000,
     book: null,
@@ -22,7 +24,18 @@ export const useBookStore = defineStore('books', {
   }),
 
   getters: {
-    allBooks: (state): Book[] => state.books,
+    allBooks: (state): Book[] => {
+      if (state.query)
+        return state.books.filter((book: Book) => {
+          const query = state.query || ''
+          return (
+            book.title.toLowerCase().includes(query.toLowerCase()) ||
+            book.author.toLowerCase().includes(query.toLowerCase()) ||
+            book.isbn.toLowerCase().includes(query.toLowerCase())
+          )
+        })
+      return state.books
+    },
     currentBook: (state): Book | null => state.book,
     isLoading: (state): boolean => state.loading,
     getError: (state): Error | any => state.error,
@@ -36,6 +49,9 @@ export const useBookStore = defineStore('books', {
   },
 
   actions: {
+    setQuery(query: string | null) {
+      this.query = query
+    },
     clearBook() {
       this.book = null
     },

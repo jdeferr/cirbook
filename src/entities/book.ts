@@ -7,4 +7,9 @@ export interface Book {
   availableStock: number
 }
 
+export interface PurchaseResponse {
+  book: Book | null
+  message: string
+}
+
 export type BookWidget = Omit<Book, 'isbn' | 'availableStock'>

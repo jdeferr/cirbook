@@ -2,11 +2,11 @@
 import CloseIcon from '@/components/Atoms/CloseIconAtom.vue'
 import AlertIcon from '@/components/Atoms/AlertIconAtom.vue'
 import SuccessIcon from '@/components/Atoms/AlertIconAtom.vue'
+import { MessageEnum, type Message } from '@/entities/message'
 
 interface Props {
-  message: string
+  message: Message
   buttonLabel: string
-  icon: 'alert' | 'success'
 }
 
 const props = defineProps<Props>()
@@ -30,11 +30,12 @@ const props = defineProps<Props>()
           <span class="sr-only">Close modal</span>
         </button>
         <div class="p-4 md:p-5 text-center">
-          <AlertIcon v-if="icon == 'alert'" />
-          <SuccessIcon v-else-if="icon == 'success'" />
-          <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-            {{ message }}
-          </h3>
+          <AlertIcon v-if="message.type == MessageEnum.ERROR" />
+          <SuccessIcon v-else-if="message.type == MessageEnum.SUCCESS" />
+          <h3 class="text-xl font-body text-gray-600">{{ message.title }}</h3>
+          <p class="mb-5 text-lg font-body text-gray-500 dark:text-gray-400">
+            {{ message.message }}
+          </p>
           <button
             @click="$emit('close')"
             type="button"

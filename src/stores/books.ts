@@ -1,8 +1,6 @@
 import type { Book } from '@/entities/book'
+import { getBook, getBooks } from '@/services/books'
 import { defineStore } from 'pinia'
-
-const API_BASE_URL = import.meta.env.API_URL || 'http://localhost:8000'
-const API_BOOK_URL = `${API_BASE_URL}/books`
 
 interface BooksState {
   books: Book[]
@@ -38,19 +36,19 @@ export const useBookStore = defineStore('books', {
   },
 
   actions: {
+    clearBook() {
+      this.book = null
+    },
     async getBooks() {
       this.loading = true
       try {
-        const response = await fetch(API_BOOK_URL)
-        this.books = (await response.json()).books
+        this.books = await getBooks()
+        this.lastBooksFetch = new Date()
       } catch (error: any) {
         this.error = error
       } finally {
         this.loading = false
       }
-    },
-    clearBook() {
-      this.book = null
     },
     async getBook(id: string) {
       this.loading = true
@@ -60,10 +58,9 @@ export const useBookStore = defineStore('books', {
         this.loading = false
         return
       }
+
       try {
-        const response = await fetch(`${API_BOOK_URL}/${id}`)
-        this.book = (await response.json()).book
-        this.lastBooksFetch = new Date()
+        this.book = await getBook(id)
       } catch (error: any) {
         this.error = error
       } finally {

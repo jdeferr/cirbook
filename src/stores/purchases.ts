@@ -1,13 +1,10 @@
 import { defineStore } from 'pinia'
 
-import type { Book } from '@/entities/book'
 import type { Customer } from '@/entities/customer'
 import { MessageEnum, type Message } from '@/entities/message'
 
 import { useBookStore } from './books'
-
-const API_BASE_URL = import.meta.env.API_URL || 'http://localhost:8000'
-const API_BOOK_URL = `${API_BASE_URL}/books`
+import { purchaseBook } from '@/services/books'
 
 interface PurchasesState {
   customer: Customer | null
@@ -29,35 +26,29 @@ export const usePurchaseStore = defineStore('purchases', {
 
   actions: {
     async purchaseBook(id: string) {
+      this.loading = true
       const bookStore = useBookStore()
+      try {
+        const response = await purchaseBook(id)
 
-      const response = await fetch(`${API_BOOK_URL}/${id}/purchase`, {
-        method: 'POST'
-      })
-      const data = await response.json()
-
-      if (response.status === 200) {
+        if (response.book === null) throw new Error(response.message)
         bookStore.$patch({
-          book: data.book
+          book: response.book
         })
 
         this.message = {
           title: 'SUCCESS',
-          message: data.message,
+          message: response.message,
           type: MessageEnum.SUCCESS
         }
-      } else if (response.status === 404 || response.status === 500) {
+      } catch (error: any) {
         this.message = {
           title: 'ERROR',
-          message: data.message,
+          message: error.message,
           type: MessageEnum.ERROR
         }
-      } else {
-        this.message = {
-          title: 'ERROR',
-          message: 'An error occurred, please try again later.',
-          type: MessageEnum.ERROR
-        }
+      } finally {
+        this.loading = false
       }
     }
   }

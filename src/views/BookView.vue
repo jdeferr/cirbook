@@ -16,11 +16,6 @@ bookStore.getBook(id)
 
 const purchaseStore = usePurchaseStore()
 
-const purchaseResponse = ref({
-  success: null,
-  message: ''
-} as { success: boolean | null; message: string })
-
 const purchaseBook = () => {
   purchaseStore.purchaseBook(id)
 }
@@ -63,24 +58,20 @@ const purchaseBook = () => {
           </div>
         </div>
         <div>
-          <div
-            v-if="purchaseResponse.success === true"
-            class="bg-secondary-500 px-2 py-1 text-white my-2 rounded"
-          >
-            {{ purchaseResponse.message }}
-          </div>
-          <div
-            v-if="purchaseResponse.success === false"
-            class="bg-red-500 px-2 py-1 text-white my-2 rounded"
-          >
-            {{ purchaseResponse.message }}
-          </div>
           <button
+            v-if="bookStore.book.availableStock > 0"
             data-test="purchase-button"
             class="font-button shadow-xl bg-complementary text-white rounded-full py-3 px-4 text-body"
             @click="purchaseBook"
           >
             PURCHASE A COPY
+          </button>
+          <button
+            v-else
+            class="font-button shadow-xl bg-gray-300 text-gray-500 rounded-full py-3 px-4 text-body"
+            disabled
+          >
+            OUT OF STOCK
           </button>
         </div>
       </div>

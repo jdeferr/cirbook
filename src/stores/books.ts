@@ -39,13 +39,16 @@ export const useBookStore = defineStore('books', {
     clearBook() {
       this.book = null
     },
+    updateFetchInterval(interval: number) {
+      this.minFetchInterval = interval
+    },
     async getBooks() {
       this.loading = true
       try {
         this.books = await getBooks()
         this.lastBooksFetch = new Date()
       } catch (error: any) {
-        this.error = error
+        this.error = error.message
       } finally {
         this.loading = false
       }
@@ -60,9 +63,14 @@ export const useBookStore = defineStore('books', {
       }
 
       try {
-        this.book = await getBook(id)
+        const response = await getBook(id)
+        if (response === null) {
+          this.error = 'Book not found'
+          return
+        }
+        this.book = response
       } catch (error: any) {
-        this.error = error
+        this.error = error.message
       } finally {
         this.loading = false
       }

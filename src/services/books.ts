@@ -7,6 +7,7 @@ export const getBooks = async () => {
   try {
     const response = await fetch(API_BOOK_URL)
     if (response.status !== 200) throw new Error('Internal server error')
+
     return (await response.json()).books
   } catch (error) {
     // console.error(error)

@@ -68,6 +68,7 @@ const purchaseBook = () => {
           </button>
           <button
             v-else
+            data-test="out-of-stock-button"
             class="font-button shadow-xl bg-gray-300 text-gray-500 rounded-full py-3 px-4 text-body"
             disabled
           >

@@ -4,7 +4,6 @@ import Modal from '@/components/Molecules/ModalMolecule.vue'
 import { useRoute } from 'vue-router'
 import { useBookStore } from '@/stores/books'
 import { usePurchaseStore } from '@/stores/purchases'
-import { ref } from 'vue'
 
 const route = useRoute()
 const idSlug = route.params.id as string

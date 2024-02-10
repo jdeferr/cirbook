@@ -6,9 +6,10 @@ const API_BOOK_URL = `${API_BASE_URL}/books`
 export const getBooks = async () => {
   try {
     const response = await fetch(API_BOOK_URL)
+    if (response.status !== 200) throw new Error('Internal server error')
     return (await response.json()).books
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     throw new Error('An error occurred while fetching the books. Please try again later.')
   }
 }
@@ -16,9 +17,11 @@ export const getBooks = async () => {
 export const getBook = async (id: string) => {
   try {
     const response = await fetch(`${API_BOOK_URL}/${id}`)
+    if (response.status === 404) return null
+    if (response.status !== 200) throw new Error('Internal server error')
     return (await response.json()).book
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     throw new Error('An error occurred while fetching the book. Please try again later.')
   }
 }
@@ -40,7 +43,7 @@ export const purchaseBook = async (id: string): Promise<PurchaseResponse> => {
       throw new Error('An error occurred, please try again later.')
     }
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     throw new Error('An error occurred, please try again later.')
   }
 }

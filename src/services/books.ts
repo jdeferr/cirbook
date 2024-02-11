@@ -1,4 +1,4 @@
-import type { Book, PurchaseResponse } from '@/entities/book'
+import type { PurchaseResponse } from '@/entities/book'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 const API_BOOK_URL = `${API_BASE_URL}/books`

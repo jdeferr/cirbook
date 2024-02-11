@@ -35,7 +35,7 @@ export const purchaseBook = async (id: string): Promise<PurchaseResponse> => {
     const data = await response.json()
     if (response.status === 200) {
       return data
-    } else if (response.status === 404 || response.status === 500) {
+    } else if (response.status === 404) {
       return {
         book: null,
         message: data.message

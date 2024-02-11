@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import cover from '@/assets/cover.png'
 import type { BookWidget } from '@/entities/book'
+import BookCoverAtom from '@/components/Atoms/BookCoverAtom.vue'
 
 const props = defineProps<BookWidget>()
 
@@ -13,12 +13,7 @@ const bookLink = `/book/${props.id}-${formatTitle(props.title)}`
   <router-link :to="bookLink">
     <article class="flex flex-col gap-y-3 fade">
       <div class="book-bg p-8 md:p-10 lg:p-12 aspect-square">
-        <img
-          :src="cover"
-          :alt="props.title"
-          class="w-full overflow-hidden rounded-xl shadow-lg"
-          width="100%"
-        />
+        <BookCoverAtom class="text-sm" />
       </div>
       <div class="flex justify-between w-full">
         <div>

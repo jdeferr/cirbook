@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import cover from '@/assets/cover.png'
+import BookCoverAtom from '@/components/Atoms/BookCoverAtom.vue'
 import Modal from '@/components/Molecules/ModalMolecule.vue'
 import { useRoute } from 'vue-router'
 import { useBookStore } from '@/stores/books'
@@ -39,11 +39,7 @@ const purchaseBook = () => {
         class="px-5 md:max-w-[90%] lg:max-w-desktop gap-x-10 md:gap-x-5 lg:gap-x-10 mx-auto grid grid-cols-12 pt-2 md:pt-5 lg:pt-10 translate-y-2 md:translate-y-5 lg:translate-y-10"
       >
         <div class="col-span-4 md:col-start-3 md:col-span-3">
-          <img
-            :src="cover"
-            :alt="bookStore.book.title"
-            class="w-full overflow-hidden rounded-xl shadow-xl"
-          />
+          <BookCoverAtom />
         </div>
         <div class="col-span-7 md:col-span-4 flex flex-col justify-around">
           <div class="flex flex-col gap-y-1 md:gap-y-5 lg:gap-y-10">

@@ -31,7 +31,7 @@ const toggleSearchMobileInput = () => {
 </script>
 
 <template>
-  <header class="bg-primary-500">
+  <header class="bg-primary-500 z-10 relative">
     <div
       class="px-2 md:max-w-[90%] lg:max-w-desktop h-16 flex justify-between items-center mx-auto"
     >

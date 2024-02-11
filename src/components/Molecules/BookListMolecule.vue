@@ -13,7 +13,7 @@ const bookLink = `/book/${props.id}-${formatTitle(props.title)}`
   <router-link :to="bookLink">
     <article class="flex flex-col gap-y-3 fade">
       <div class="book-bg w-full flex items-center p-8 md:p-10 lg:p-12 aspect-square">
-        <BookCoverAtom class="text-sm" />
+        <BookCoverAtom class="text-sm lg:text-sm" />
       </div>
       <div class="flex justify-between w-full">
         <div>

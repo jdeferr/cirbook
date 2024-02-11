@@ -2,9 +2,10 @@
 import LogoAtom from '@/components/Atoms/LogoAtom.vue'
 import InputAtom from '@/components/Atoms/InputAtom.vue'
 import { useRouter } from 'vue-router'
-import { useBookStore } from '../../stores/books'
-import SearchIcon from '../Atoms/SearchIconAtom.vue'
+import { useBookStore } from '@/stores/books'
+import SearchIcon from '@/components/Atoms/SearchIconAtom.vue'
 import { ref } from 'vue'
+import FloatSearch from '@/components/Molecules/FloatSearchMolecule.vue'
 
 const router = useRouter()
 const bookStore = useBookStore()
@@ -50,24 +51,9 @@ const toggleSearchMobileInput = () => {
       </div>
     </div>
   </header>
-  <div
+  <FloatSearch
     v-if="showSearchMobileInput"
-    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-  >
-    <div
-      @click="toggleSearchMobileInput"
-      class="w-full h-full absolute top-0 left-0 bg-black opacity-50"
-    ></div>
-    <div
-      class="absolute top-20 left-1/2 transform -translate-x-1/2 max-w-3.5 max-h-full min-w-[300px]"
-    >
-      <div class="relative">
-        <InputAtom
-          type="text"
-          placeholder="Search by author, title, isbn..."
-          @on-key-pressed="onKeyPressed"
-        />
-      </div>
-    </div>
-  </div>
+    @close="toggleSearchMobileInput"
+    @submit="onKeyPressed"
+  />
 </template>

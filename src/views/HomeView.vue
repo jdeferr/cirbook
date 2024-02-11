@@ -3,6 +3,8 @@ import BookList from '@components/Molecules/BookListMolecule.vue'
 import BookListSkeleton from '@components/Molecules/BookListSkeletonMolecule.vue'
 import { useBookStore } from '@/stores/books'
 import { useRoute } from 'vue-router'
+import GridBooksLayout from '@/components/Layouts/GridBooksLayout.vue'
+import SectionTitle from '@/components/Atoms/SectionTitleAtom.vue'
 
 const route = useRoute()
 const query = route.query.search as string
@@ -17,21 +19,20 @@ bookStore.getBooks()
 <template>
   <main class="py-10" v-if="bookStore">
     <section class="px-2 md:max-w-[90%] lg:max-w-desktop mx-auto">
-      <h4 class="font-title text-3xl text-center mb-10">Books</h4>
-      <div
-        class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-5 gap-x-5 md:gap-x-12 xl:gap-x-24"
-      >
+      <SectionTitle> Books </SectionTitle>
+      <GridBooksLayout>
         <template v-if="bookStore.isLoading">
-          <template v-for="i in 12" :key="i">
-            <BookListSkeleton />
-          </template>
+          <BookListSkeleton v-for="i in 12" :key="i" />
         </template>
-        <template
-          v-else-if="!bookStore.isLoading && bookStore.allBooks.length > 0"
-          v-for="book in bookStore.allBooks"
-          :key="book.id"
-        >
-          <BookList :title="book.title" :author="book.author" :price="book.price" :id="book.id" />
+        <template v-else-if="!bookStore.isLoading && bookStore.allBooks.length > 0">
+          <BookList
+            v-for="book in bookStore.allBooks"
+            :key="book.id"
+            :title="book.title"
+            :author="book.author"
+            :price="book.price"
+            :id="book.id"
+          />
         </template>
         <div v-else>
           <p data-test="no-books-found-message">
@@ -41,7 +42,7 @@ bookStore.getBooks()
             <template v-else> No books found </template>
           </p>
         </div>
-      </div>
+      </GridBooksLayout>
     </section>
   </main>
 </template>

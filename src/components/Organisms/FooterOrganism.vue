@@ -3,7 +3,7 @@ import FooterColumnMolecule from '@/components/Molecules/FooterColumnMolecule.vu
 import LogoAtom from '@/components/Atoms/LogoAtom.vue'
 import { LinkTypeEnum } from '@/entities/ui'
 
-const LinkedinUrl = import.meta.env.AUTHOR_LINKEDIN || 'https://www.linkedin.com/in/jdeferr'
+const LinkedinUrl = import.meta.env.VITE_AUTHOR_LINKEDIN || 'https://www.linkedin.com/in/jdeferr'
 
 const footerColumns = [
   {

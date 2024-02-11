@@ -8,3 +8,9 @@ export interface Link {
   url: string
   type: LinkTypeEnum
 }
+
+export enum ButtonTypeEnum {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DISABLE = 'disable'
+}

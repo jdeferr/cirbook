@@ -13,7 +13,12 @@ const bookLink = `/book/${props.id}-${formatTitle(props.title)}`
   <router-link :to="bookLink">
     <article class="flex flex-col gap-y-3 fade">
       <div class="book-bg p-8 md:p-10 lg:p-12 aspect-square">
-        <img :src="cover" :alt="props.title" class="w-full overflow-hidden rounded-xl shadow-lg" />
+        <img
+          :src="cover"
+          :alt="props.title"
+          class="w-full overflow-hidden rounded-xl shadow-lg"
+          width="100%"
+        />
       </div>
       <div class="flex justify-between w-full">
         <div>

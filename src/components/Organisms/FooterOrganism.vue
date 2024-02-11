@@ -22,7 +22,9 @@ const footerColumns = [
 
 <template>
   <footer class="bg-complementary text-white">
-    <div class="max-w-desktop py-10 pb-56 flex justify-between items-start mx-auto">
+    <div
+      class="px-2 md:max-w-[90%] lg:max-w-desktop py-10 pb-56 flex flex-col gap-y-10 lg:flex-row justify-between items-start mx-auto"
+    >
       <FooterColumnMolecule
         v-for="(column, key) in footerColumns"
         :key="key"

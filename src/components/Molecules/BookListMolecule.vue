@@ -22,7 +22,7 @@ const bookLink = `/book/${props.id}-${formatTitle(props.title)}`
           </h5>
           <p class="text-author text-[10px] font-body">{{ props.author }}</p>
         </div>
-        <div>
+        <div class="w-full">
           <span
             class="block font-price bg-secondary-100 text-complementary font-light text-sm text-nowrap rounded-3xl px-2 py-1"
             >{{ props.price }} NZD</span

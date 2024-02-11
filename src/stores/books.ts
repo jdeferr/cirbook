@@ -61,6 +61,10 @@ export const useBookStore = defineStore('books', {
     async getBooks() {
       this.loading = true
       try {
+        if (this.books.length > 0 && !this.shouldFetchBooks) {
+          return
+        }
+
         this.books = await getBooks()
         this.lastBooksFetch = new Date()
       } catch (error: any) {

@@ -28,6 +28,8 @@ const purchaseBook = () => {
 const areAvaiableStock = () => {
   return bookStore.book && bookStore.book.availableStock > 0
 }
+
+const bookDescription = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, temporibus exercitationem. Sed, repellat iure. Corporis totam nulla ut error aliquam laudantium cumque ducimus, voluptates dolore. Ad dignissimos ex numquam deleniti! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero voluptatem numquam nobis minima et, consequuntur animi, quis, illo earum consequatur illum! Soluta, hic sunt tenetur reiciendis veniam harum adipisci quo.`
 </script>
 
 <template>
@@ -73,12 +75,7 @@ const areAvaiableStock = () => {
     <section class="my-20 lg:my-32 px-5 md:max-w-[90%] lg:max-w-desktop mx-auto">
       <SectionTitle> Synopsis </SectionTitle>
       <p class="text-md md:text-lg font-extralight md:text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, temporibus exercitationem.
-        Sed, repellat iure. Corporis totam nulla ut error aliquam laudantium cumque ducimus,
-        voluptates dolore. Ad dignissimos ex numquam deleniti! Lorem ipsum, dolor sit amet
-        consectetur adipisicing elit. Libero voluptatem numquam nobis minima et, consequuntur animi,
-        quis, illo earum consequatur illum! Soluta, hic sunt tenetur reiciendis veniam harum
-        adipisci quo.
+        {{ bookDescription }}
       </p>
     </section>
   </template>

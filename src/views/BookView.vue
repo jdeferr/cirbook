@@ -46,8 +46,8 @@ const areAvaiableStock = () => {
           <div class="flex flex-col gap-y-1 md:gap-y-5 lg:gap-y-10">
             <div>
               <BookTitle :title="bookStore.book.title" />
-              <BookMeta label="author" :value="bookStore.book.author" />
-              <BookMeta label="isbn" :value="bookStore.book.isbn" />
+              <BookMeta data-test="book-author" label="author" :value="bookStore.book.author" />
+              <BookMeta data-test="book-isbn" label="isbn" :value="bookStore.book.isbn" />
             </div>
             <div class="flex flex-col text-secondary-500 font-medium font-price">
               <span class="text-xl md:text-3xl text-nowrap rounded-3xl"
@@ -60,8 +60,12 @@ const areAvaiableStock = () => {
             </div>
           </div>
           <div>
-            <Button @click="purchaseBook" v-if="areAvaiableStock()"> PURCHASE A COPY </Button>
-            <Button :type="ButtonTypeEnum.DISABLE" v-else> OUT OF STOCK </Button>
+            <Button data-test="purchase-button" @click="purchaseBook" v-if="areAvaiableStock()">
+              PURCHASE A COPY
+            </Button>
+            <Button data-test="out-of-stock-button" :type="ButtonTypeEnum.DISABLE" v-else>
+              OUT OF STOCK
+            </Button>
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@ bookStore.getBooks()
       <SectionTitle> Books </SectionTitle>
       <GridBooksLayout>
         <template v-if="bookStore.isLoading">
-          <BookListSkeleton v-for="i in 12" :key="i" />
+          <BookListSkeleton data-test="loading-skeleton" v-for="i in 12" :key="i" />
         </template>
         <template v-else-if="!bookStore.isLoading && bookStore.allBooks.length > 0">
           <BookList

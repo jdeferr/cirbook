@@ -5,19 +5,25 @@ import { usePurchaseStore } from '@/stores/purchases'
 import { createPinia, setActivePinia } from 'pinia'
 import { MessageEnum } from '@/entities/message'
 
-describe('Purchases Store', () => {
+describe('Initialization of state', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
 
-  it('should initialize with default state', () => {
+  it('Test whether the component initializes with default state.', () => {
     const store = usePurchaseStore()
     expect(store.isLoading).toBe(false)
     expect(store.getMessage).toBeNull()
     expect(store.getMessage).toBeNull()
   })
+})
 
-  it('should purchase book', async () => {
+describe('Book purchasing operations', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
+
+  it('Test purchasing a book.', async () => {
     const bookMock = booksMock[0]
     const spy = vi.spyOn(service, 'purchaseBook')
     spy.mockResolvedValue({
@@ -38,8 +44,13 @@ describe('Purchases Store', () => {
     expect(message?.message).not.toBe('')
     expect(message?.type).toBe(MessageEnum.SUCCESS)
   })
+})
 
-  it('should handle error on purchase book when service return null', async () => {
+describe('Error handling in book purchasing', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
+  it('Test handling errors when the service returns null during book purchase.', async () => {
     const bookMock = booksMock[0]
     const spy = vi.spyOn(service, 'purchaseBook')
     spy.mockResolvedValue({
@@ -58,7 +69,7 @@ describe('Purchases Store', () => {
     expect(message?.type).toBe(MessageEnum.ERROR)
   })
 
-  it('should handle error on purchase book when service return error', async () => {
+  it('Test handling errors when the service returns an error during book purchase', async () => {
     const bookMock = booksMock[0]
     const spy = vi.spyOn(service, 'purchaseBook')
     spy.mockRejectedValue(new Error('Error'))

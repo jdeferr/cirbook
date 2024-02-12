@@ -24,14 +24,14 @@ describe('Book view', () => {
     })
   }
 
-  it('should render the component', async () => {
+  it('Test whether the component renders properly', async () => {
     router.push(`/book/${book.id}`)
     await router.isReady()
     const wrapper = createWrapper({})
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('renders book details', async () => {
+  it('Test whether the book details are rendered correctly.', async () => {
     router.push(`/book/${book.id}`)
     await router.isReady()
     const wrapper = createWrapper({
@@ -41,19 +41,20 @@ describe('Book view', () => {
       }
     })
 
-    const title = wrapper.find('[data-test="book-title"]')
+    const title = wrapper.findComponent({ name: 'BookTitleAtom' })
+    expect(title.exists()).toBeTruthy()
     expect(title.text()).toBe(book.title)
     const author = wrapper.find('[data-test="book-author"]')
-    expect(author.text()).toBe(book.author)
+    expect(author.text()).contain(book.author)
     const price = wrapper.find('[data-test="book-price"]')
     expect(price.text()).toBe(book.price.toString())
     const isbn = wrapper.find('[data-test="book-isbn"]')
-    expect(isbn.text()).toBe(book.isbn)
+    expect(isbn.text()).contain(book.isbn)
     const stock = wrapper.find('[data-test="book-stock"]')
     expect(stock.text()).toBe(book.availableStock.toString())
   })
 
-  it('show modal when pruchases message have information', async () => {
+  it('Test whether the modal is displayed when the purchase message contains information.', async () => {
     router.push(`/book/${book.id}`)
     await router.isReady()
     const wrapper = createWrapper({
@@ -79,7 +80,7 @@ describe('Book view', () => {
     expect(modalMessage.text()).toBe('An error occurred, please try again later.')
   })
 
-  it('show out of stock button', async () => {
+  it('Test whether the out-of-stock button is displayed', async () => {
     router.push(`/book/${book.id}`)
     await router.isReady()
     const wrapper = createWrapper({
@@ -98,7 +99,7 @@ describe('Book view', () => {
     expect(outOfStock.exists()).toBeTruthy()
   })
 
-  it('show purchase button', async () => {
+  it('Test whether the purchase button is displayed.', async () => {
     router.push(`/book/${book.id}`)
     await router.isReady()
     const wrapper = createWrapper({

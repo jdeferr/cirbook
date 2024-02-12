@@ -4,12 +4,12 @@ import booksMock from '@/tests/mocks/books.json'
 import { useBookStore } from '@/stores/books'
 import { createPinia, setActivePinia } from 'pinia'
 
-describe('Book Store', () => {
+describe('Initialization of state', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
 
-  it('should initialize with default state', () => {
+  it('Test whether the component initializes with default state.', () => {
     const store = useBookStore()
     expect(store.allBooks).toEqual([])
     expect(store.currentBook).toBeNull()
@@ -17,16 +17,28 @@ describe('Book Store', () => {
     expect(store.getError).toBeNull()
     expect(store.shouldFetchBooks).toBe(true)
   })
+})
 
-  it('should clear the current book', () => {
+describe('Book cleaning and manipulation operations', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
+
+  it('Test clearing the current book', () => {
     const store = useBookStore()
     store.$patch({ book: booksMock[0] })
     expect(store.currentBook).toEqual(booksMock[0])
     store.clearBook()
     expect(store.currentBook).toBeNull()
   })
+})
 
-  it('should fetch books', async () => {
+describe('Book search and retrieval operations', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
+
+  it('Test fetching books.', async () => {
     const spy = vi.spyOn(service, 'getBooks')
     spy.mockResolvedValue(booksMock)
 
@@ -38,19 +50,7 @@ describe('Book Store', () => {
     expect(store.lastBooksFetch).toBeInstanceOf(Date)
   })
 
-  it('should handle error when fetching books', async () => {
-    const spy = vi.spyOn(service, 'getBooks')
-    const messageError = 'An error occurred while fetching the books. Please try again later.'
-    spy.mockRejectedValue(new Error(messageError))
-
-    const store = useBookStore()
-    await store.getBooks()
-
-    expect(spy).toHaveBeenCalledOnce()
-    expect(store.getError).toEqual(messageError)
-  })
-
-  it('should fetch book by id', async () => {
+  it('Test fetching a book by its ID.', async () => {
     const bookMock = booksMock[0]
     const spy = vi.spyOn(service, 'getBook')
     spy.mockResolvedValue(bookMock)
@@ -62,7 +62,7 @@ describe('Book Store', () => {
     expect(store.currentBook).toEqual(bookMock)
   })
 
-  it('should fetch book', async () => {
+  it('Test fetching a book.', async () => {
     const store = useBookStore()
     store.$patch({ lastBooksFetch: new Date() })
     expect(store.shouldFetchBooks).toBe(false)
@@ -70,7 +70,7 @@ describe('Book Store', () => {
     expect(store.shouldFetchBooks).toBe(true)
   })
 
-  it('should fetch book by cache books', async () => {
+  it('Test fetching a book using cached books.', async () => {
     const bookMock = booksMock[0]
     const spyBook = vi.spyOn(service, 'getBook')
     const spyBooks = vi.spyOn(service, 'getBooks')
@@ -101,8 +101,25 @@ describe('Book Store', () => {
     expect(spyBook).toHaveBeenCalledOnce()
     expect(store.currentBook).toEqual(bookMock)
   })
+})
 
-  it('should handle error when fetching book', async () => {
+describe('Error handling in book search and retrieval', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
+  it('Test handling errors when fetching books.', async () => {
+    const spy = vi.spyOn(service, 'getBooks')
+    const messageError = 'An error occurred while fetching the books. Please try again later.'
+    spy.mockRejectedValue(new Error(messageError))
+
+    const store = useBookStore()
+    await store.getBooks()
+
+    expect(spy).toHaveBeenCalledOnce()
+    expect(store.getError).toEqual(messageError)
+  })
+
+  it('Test handling errors when fetching a book.', async () => {
     const bookMock = booksMock[0]
     const spy = vi.spyOn(service, 'getBook')
     const messageError = 'An error occurred while fetching the books. Please try again later.'
@@ -115,7 +132,7 @@ describe('Book Store', () => {
     expect(store.getError).toEqual(messageError)
   })
 
-  it('should handle null when fetching book', async () => {
+  it('Test handling null when fetching a book.', async () => {
     const bookMock = booksMock[0]
     const spy = vi.spyOn(service, 'getBook')
     spy.mockResolvedValue(null)

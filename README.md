@@ -1,27 +1,59 @@
-# circlepos-front
+# Frontend Developer Challenge: Bookstore
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is a web application that works as an online bookstore. Users can browse a list of available books, view detailed information about each book, and make purchases.
 
-## Recommended IDE Setup
+## Demo
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+You can see the live demo [here](https://cirbook-challenge.netlify.app/).
 
-## Type Support for `.vue` Imports in TS
+## Figma Prototype
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+You can see the Figma prototype [here](https://www.figma.com/file/ctK4GfWiA3fU7c16BRjDqu/Untitled?type=design&node-id=89%3A83&mode=design&t=TRPNYE3Y530Cg2w0-1)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Technologies
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- Vue 3 + TypeScript
+- Pinia
+- Vitest
+- Tailwind
+- Eslint
+- Prettier
+
+## Code Structure
+
+In this project, the code is organized into the following directories:
+
+- Components
+  - Atoms
+  - Layouts
+  - Molecules
+  - Organisms
+- Entities
+- Router
+- Services
+- Stores
+- Tests
+- Views
+
+## Additional Features:
+
+Caching system that saves the last fetch of the books.
+
+## Testing and Deployment
+
+### Testing
+
+Unit testing with Vitest.
+
+### Deployment
+
+Frontend: Netlify.
+Backend: AWS Lambda + Beanstalk.
+Load balancer and CloudFront.
 
 ## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+clone the repository and run the following commands:
 
 ```sh
 npm install
@@ -51,18 +83,7 @@ npm run test:unit
 npm run test:e2e:dev
 ```
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
 ```sh
 npm run build
 npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
